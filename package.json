@@ -4,10 +4,14 @@
   "description": "A demo login for single page applications using react with mongodb",
   "main": "index.js",
   "scripts": {
+    "clean": "rimraf statics lib coverage",
     "client:start": "node webpack/client/server.js",
-    "server:build": "webpack --watch --config webpack/server/server.js",
+    "server:build": "NODE_ENV=server webpack --watch --config webpack/server/server.js",
     "server:start": "nodemon static/serverBundle.js",
-    "build:lib": "babel src --out-dir lib"
+    "build:lib-browser": "NODE_ENV=client babel src/browser --out-dir lib/browser",
+    "build:lib-server": "NODE_ENV=lib babel src/server  --out-dir lib/server",
+    "test:only": "mocha --recursive 'lib/server/__test__/*.js'",
+    "test": "npm run clean && npm run build:lib-server && npm run test:only"
   },
   "keywords": [
     "loginapp"
@@ -15,6 +19,7 @@
   "author": "Devarsh Shah",
   "license": "ISC",
   "devDependencies": {
+    "atob": "^2.0.3",
     "autoprefixer": "^6.3.6",
     "autoprefixer-loader": "^3.2.0",
     "babel": "^6.5.2",
@@ -24,6 +29,8 @@
     "babel-loader": "^6.2.5",
     "babel-plugin-webpack-alias": "^1.3.1",
     "babel-preset-es2015": "^6.14.0",
+    "babel-preset-es2016": "^6.11.3",
+    "babel-preset-es2017": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-preset-stage-1": "^6.13.0",
@@ -42,10 +49,11 @@
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.3",
     "istanbul": "^0.4.4",
+    "json-loader": "^0.5.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "markdown-loader": "^0.1.7",
-    "mocha": "^3.0.0",
+    "mocha": "^3.0.2",
     "node-sass": "^3.8.0",
     "nodemon": "^1.10.2",
     "open": "0.0.5",
@@ -72,18 +80,23 @@
     "bootstrap": "^4.0.0-alpha.2",
     "expect": "^1.20.2",
     "express": "^4.14.0",
+    "helmet": "^2.2.0",
     "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^7.1.9",
+    "mailgun-js": "^0.7.12",
     "mongoose": "^4.5.10",
     "node-uuid": "^1.4.7",
+    "oy-vey": "^0.7.0",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
+    "react-html-email": "^1.1.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "redux-logger": "^2.6.1",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "uuid": "^2.0.2"
   }
 }

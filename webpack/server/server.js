@@ -9,25 +9,32 @@ var nodeModules = fs.readdirSync(path.join(basePath,'./node_modules'))
   });
 
 module.exports = {
-  entry: path.join(srcPath, './index.js'),
-  resolve : {
+  entry: [
+  'regenerator-runtime/runtime',
+  path.join(srcPath, './index.js')
+  ],
+  resolve: {
     extensions: ['','.js','.jsx'],
-    modules : [srcPath,path.join(basePath,'./node_modules')],
-    alias : {
-      config : path.join(basePath,'./config'),
-      controller : path.join(srcPath,'./controller'),
-      models : path.join(srcPath,'./models')
+    modules: [srcPath,path.join(basePath,'./node_modules')],
+    alias: {
+      config: path.join(basePath,'./config'),
+      controllers: path.join(srcPath,'./controllers'),
+      models: path.join(srcPath,'./models'),
+      templates: path.join(srcPath,'./templates'),
+      helpers: path.join(srcPath,'./helpers'),
+      services: path.join(srcPath,'./services'),
+      middlewares: path.join(srcPath,'./middlewares')
     },
   },
   module: {
     preLoaders: [
-      {
+     /* {
         test: /\.(js|jsx)$/,
         include: __dirname,
         loader: 'eslint-loader',
         include: path.join(basePath, './src/server'),
         exclude: path.join(basePath, './node_modules')
-      }
+      } */
     ],
     loaders: [
       {
@@ -39,7 +46,11 @@ module.exports = {
       {
         test: /\.json$/,
         loader: "json-loader",
-      }
+      },
+      {
+        test: /\.(htm|html)$/,
+        loader: 'html-loader'
+      },
     ]
   },
   node: {

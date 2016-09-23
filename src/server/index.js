@@ -1,32 +1,23 @@
+import { port, adr, connectionString, apiVersion, apiEndPointPath } from '../../config/server.js'
 import express from 'express'
 import bodyParser from 'body-parser'
-import { port, adr, connectionString } from '../../config/server.js'
-import { postUsers, getUsers } from 'controller/user'
 import mongoose from 'mongoose'
 import passport from 'passport'
-import { isAuthenticated, isAuthorized } from 'controller/auth'
 
-/* eslint-disable new-cap */
-const router = express.Router()
-const app = new express()
+import cors from 'middlewares/cors'
+import router from 'middlewares/routes'
+
 mongoose.connect(connectionString)
+mongoose.Promise = global.Promise
+
+const app = new express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(passport.initialize())
-// enable cors
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Cache-Control, Authorization')
-  next()
+app.use(cors)
+app.use(`/${apiVersion}/${apiEndPointPath}`, router)
+app.get(`/${apiVersion}/${apiEndPointPath}`, (req, res) => {
+  res.send('Api server running :)')
 })
-app.use('/api', router)
-
-router.route('/users')
-  .get(isAuthenticated, getUsers)
-  .post(postUsers)
-
-router.route('/dashboard')
-  .get(isAuthorized, (req, res) => res.json(req.user))
 
 app.listen(port, adr, (err) => {
   if (!err) {

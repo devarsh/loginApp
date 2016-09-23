@@ -4,8 +4,6 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { loginSuccessful, notLoggedIn } from 'actions/login'
 
-console.log(auth)
-
 class App extends Component {
   constructor(props) {
     super(props)

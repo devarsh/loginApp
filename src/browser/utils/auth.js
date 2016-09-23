@@ -14,6 +14,16 @@ const authenticationRequestMaker = (username, password) => ({
   }
 })
 
+const ResetPasswordRequest = (email) => ({
+  link: resolve(serverEndPoint, 'users/forgot/password'),
+  method: 'POST',
+  mode: 'cors',
+  headers: {
+    Aceept: 'application/json',
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache'
+  }
+})
 export const isLoggedIn = () => !!localStorage.token
 
 export const getToken = () => localStorage.token

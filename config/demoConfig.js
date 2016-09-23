@@ -9,14 +9,12 @@ module.exports = {
   protocol,
   apiVersion,
   apiEndPointPath,
-  connectionString: 'mongodb://localhost:27017/userdb',
+  connectionString: '[mongo_db connection Stringr]',
   jwtEncrKey: 'demo',
   serverEndPoint: `${protocol}://${adr}:${port}/${apiVersion}/${apiEndPointPath}/`,
   mailgun: {
-    key: 'key-c832dffabd802d5d278a9e8f9e293251',
-    domain: 'sandbox5c3557c0802849a08b8a8cafdfcf2c3f.mailgun.org'
+    key: '[mailgun-key]',
+    domain: '[mailgun-domain]'
   }
 }
-
-
 

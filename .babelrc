@@ -1,4 +1,16 @@
 {
-  "presets": ["es2015", "react","stage-2"],
-  "plugins" : [["transform-class-properties"]]
+  "env": {
+    "client" : {
+      "presets": ["es2015", "react", "stage-2","es2016", "es2017"],
+      "plugins": [["transform-class-properties"]]
+    },
+    "server" : {
+      "presets": ["react", "node6"],
+      "plugins": ["transform-async-to-generator"]
+    },
+    "lib" : {
+      "presets": ["react", "node6"],
+      "plugins": [["babel-plugin-webpack-alias", { "config": "./webpack/server/server.js" }]]
+    }
+  }
 }
